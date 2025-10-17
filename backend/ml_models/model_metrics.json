@@ -1,0 +1,42 @@
+{
+  "f1_score": 1.0,
+  "roc_auc_score": 0.9999999999999999,
+  "accuracy": 1.0,
+  "confusion_matrix": [
+    [
+      100,
+      0
+    ],
+    [
+      0,
+      100
+    ]
+  ],
+  "classification_report": {
+    "Real": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "Fake": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 200.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 200.0
+    }
+  }
+}
