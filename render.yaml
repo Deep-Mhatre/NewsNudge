@@ -1,0 +1,28 @@
+# Render YAML for deploying both frontend (static site) and backend (web service)
+services:
+  - type: web
+    name: newsnudge-backend
+    env: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    branch: main
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+
+  - type: static
+    name: newsnudge-frontend
+    env: node
+    plan: free
+    branch: main
+    buildCommand: cd frontend && npm install && npm run build
+    publishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false

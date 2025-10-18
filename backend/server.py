@@ -26,9 +26,10 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Load ML model and vectorizer
-model = joblib.load('/app/backend/ml_models/fake_news_model.pkl')
-tfidf_vectorizer = joblib.load('/app/backend/ml_models/tfidf_vectorizer.pkl')
+# Load ML model and vectorizer (use relative paths so local and container runs work)
+MODEL_DIR = ROOT_DIR / 'ml_models'
+model = joblib.load(str(MODEL_DIR / 'fake_news_model.pkl'))
+tfidf_vectorizer = joblib.load(str(MODEL_DIR / 'tfidf_vectorizer.pkl'))
 
 # Load model metrics
 with open('/app/backend/ml_models/model_metrics.json', 'r') as f:
