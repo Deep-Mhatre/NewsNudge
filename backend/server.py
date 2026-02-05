@@ -32,7 +32,7 @@ model = joblib.load(str(MODEL_DIR / 'fake_news_model.pkl'))
 tfidf_vectorizer = joblib.load(str(MODEL_DIR / 'tfidf_vectorizer.pkl'))
 
 # Load model metrics
-with open('/app/backend/ml_models/model_metrics.json', 'r') as f:
+with open(MODEL_DIR / 'model_metrics.json', 'r') as f:
     model_metrics = json.load(f)
 
 # Create the main app
@@ -96,7 +96,11 @@ def preprocess_text(text: str) -> str:
     text = re.sub(r'[^a-zA-Z\s]', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     
-    stop_words = set(stopwords.words('english'))
+    try:
+        stop_words = set(stopwords.words('english'))
+    except LookupError:
+        # Fallback if NLTK data is not available in the runtime environment
+        stop_words = set()
     words = text.split()
     text = ' '.join([word for word in words if word not in stop_words])
     

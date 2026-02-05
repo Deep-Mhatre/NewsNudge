@@ -44,12 +44,12 @@ const RecommendationsPage = () => {
   };
 
   const quickTopics = [
-    { label: "Climate Change", icon: "🌍" },
-    { label: "Technology", icon: "💻" },
-    { label: "Health", icon: "🏥" },
-    { label: "Sports", icon: "⚽" },
-    { label: "Politics", icon: "🏛️" },
-    { label: "Science", icon: "🔬" }
+    { label: "Climate Change" },
+    { label: "Technology" },
+    { label: "Health" },
+    { label: "Sports" },
+    { label: "Politics" },
+    { label: "Science" }
   ];
 
   const handleQuickTopic = (topic) => {
@@ -126,7 +126,6 @@ const RecommendationsPage = () => {
                   size="sm"
                   className="border-teal-300 text-teal-700 hover:bg-teal-50"
                 >
-                  <span className="mr-1">{topic.icon}</span>
                   {topic.label}
                 </Button>
               ))}
@@ -230,3 +229,5 @@ const RecommendationsPage = () => {
 };
 
 export default RecommendationsPage;
+
+

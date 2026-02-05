@@ -180,7 +180,7 @@ const DetectorPage = () => {
 
                 <div className="bg-white p-4 rounded-lg border">
                   <p className="text-sm font-semibold text-gray-800 mb-2">
-                    {result.is_fake ? '⚠️ Warning Signs:' : '✓ Credibility Indicators:'}
+                    {result.is_fake ? 'Warning Signs:' : 'Credibility Indicators:'}
                   </p>
                   <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
                     {result.is_fake ? (

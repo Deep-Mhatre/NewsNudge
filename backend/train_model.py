@@ -14,8 +14,12 @@ from pathlib import Path
 # Download required NLTK data
 try:
     stopwords.words('english')
-except:
+except LookupError:
     nltk.download('stopwords')
+
+ROOT_DIR = Path(__file__).parent
+DATA_DIR = ROOT_DIR / "data"
+MODEL_DIR = ROOT_DIR / "ml_models"
 
 # Create sample fake news dataset
 def create_sample_dataset():
@@ -104,7 +108,8 @@ def train_fake_news_detector():
     df = create_sample_dataset()
     
     # Save raw dataset
-    df.to_csv('/app/backend/data/fake_news_dataset.csv', index=False)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    df.to_csv(DATA_DIR / "fake_news_dataset.csv", index=False)
     print(f"Dataset created with {len(df)} samples")
     print(f"Real news: {len(df[df['label']==0])}, Fake news: {len(df[df['label']==1])}")
     
@@ -168,8 +173,9 @@ def train_fake_news_detector():
     # Save model and vectorizer
     print("\n" + "="*50)
     print("Saving model and vectorizer...")
-    joblib.dump(model, '/app/backend/ml_models/fake_news_model.pkl')
-    joblib.dump(vectorizer, '/app/backend/ml_models/tfidf_vectorizer.pkl')
+    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    joblib.dump(model, MODEL_DIR / "fake_news_model.pkl")
+    joblib.dump(vectorizer, MODEL_DIR / "tfidf_vectorizer.pkl")
     
     # Save metrics
     metrics = {
@@ -180,12 +186,12 @@ def train_fake_news_detector():
         'classification_report': classification_report(y_test, y_pred, target_names=['Real', 'Fake'], output_dict=True)
     }
     
-    with open('/app/backend/ml_models/model_metrics.json', 'w') as f:
+    with open(MODEL_DIR / "model_metrics.json", 'w') as f:
         json.dump(metrics, f, indent=2)
     
-    print("Model saved to: /app/backend/ml_models/fake_news_model.pkl")
-    print("Vectorizer saved to: /app/backend/ml_models/tfidf_vectorizer.pkl")
-    print("Metrics saved to: /app/backend/ml_models/model_metrics.json")
+    print(f"Model saved to: {MODEL_DIR / 'fake_news_model.pkl'}")
+    print(f"Vectorizer saved to: {MODEL_DIR / 'tfidf_vectorizer.pkl'}")
+    print(f"Metrics saved to: {MODEL_DIR / 'model_metrics.json'}")
     print("="*50)
     
     return model, vectorizer, metrics
